@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+
 body {
 	margin: 0 0 0 0;
 	background-color: #272727;
@@ -24,6 +25,16 @@ h2 {
 
 	color: rgba(255, 250, 255, 0.6);
 	margin: 0px;
+}
+
+.blm {
+	font-family: "Staatliches", cursive;
+	font-size: 1.5em;
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	color: #313131;
+	user-select: none;
 }
 
 .col {
@@ -63,18 +74,18 @@ h2 {
 }
 
 .char8 {
-	flex: 2 2 64px;
-	min-width: 64px;
+	flex: 2 2 48px;
+	min-width: 48px;
 }
 
 .char4 {
-	flex: 3 3 32px;
-	min-width: 32px;
+	flex: 3 3 24px;
+	min-width: 24px;
 }
 
 .char12 {
-	flex: 1 1 96px;
-	min-width: 96px;
+	flex: 1 1 72px;
+	min-width: 72px;
 }
 
 .sub-wrapper {

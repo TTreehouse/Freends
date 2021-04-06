@@ -118,11 +118,15 @@ const submitDates = async (dates) => {
 		let response = await postData(baseURL + "api/rooms/adduser", {
 			id: roomCode,
 			user: {
-				name: "Jimmy",
+				name: document.cookie
+					.split("; ")
+					.find((row) => row.startsWith(`username-${response.roomId}`))
+					.split("=")[1],
 				availableDays: dates,
 			},
 		});
 		userID = response.users[response.users.length - 1].userId;
+		document.cookie = `userID-${response.roomId}=${userID}`;
 		let sorted = sortBest(response);
 		setupDays(
 			new Date(response.startDate).getDay(),
@@ -135,7 +139,10 @@ const submitDates = async (dates) => {
 			user: {
 				name: "Jimmy",
 				availableDays: dates,
-				userId: userID,
+				userId: document.cookie
+					.split("; ")
+					.find((row) => row.startsWith(`userID-${response.roomId}`))
+					.split("=")[1],
 			},
 		});
 		let sorted = sortBest(response);

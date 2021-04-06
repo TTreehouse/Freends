@@ -224,6 +224,9 @@ const checkCode = async (code) => {
 			});
 		});
 	} else {
+		document.cookie = `username-${response.roomId}=${username.value}; expires=${
+			new Date() + 1
+		}`;
 		history.pushState(
 			{ additionalInformation: "Updated the URL with JS" },
 			response.roomName,
@@ -271,6 +274,9 @@ const createRoom = async () => {
 		errorField.textContent = "fatal server error";
 	} else {
 		loadingSym.style.display = "none";
+		document.cookie = `username-${response.roomId}=${username.value}; expires=${
+			new Date() + 1
+		}`;
 		history.pushState(
 			{ additionalInformation: "Updated the URL with JS" },
 			response.roomName,
@@ -325,6 +331,7 @@ inputs.forEach((input) => {
 });
 
 username.addEventListener("change", () => {
+	console.log(document.cookie);
 	checkCode();
 });
 
