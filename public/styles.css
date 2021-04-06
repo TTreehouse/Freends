@@ -131,7 +131,7 @@ h2 {
 	color: rgba(249, 57, 67, 0.38);
 }
 .empty-field {
-	border-color: rgba(249, 57, 67, 1);
+	border-color: #f93943;
 }
 
 input {
@@ -181,7 +181,7 @@ input {
 	margin: 15px;
 	width: 100%;
 	border-color: aliceblue;
-	height: 28vh;
+	height: 35vh;
 	align-items: center;
 	justify-content: start;
 }
