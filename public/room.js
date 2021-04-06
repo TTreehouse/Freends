@@ -102,7 +102,6 @@ const highlight = (day, i) => {
 	day.style.backgroundColor = "rgb(249, 57, 67)"; //set bright red
 
 	selectedDays.push(i);
-	console.log(selectedDays);
 };
 
 const indexOfDay = (_day) => {
@@ -137,7 +136,10 @@ const submitDates = async (dates) => {
 		let response = await postData(baseURL + "api/rooms/adduser", {
 			id: roomCode,
 			user: {
-				name: "Jimmy",
+				name: document.cookie
+					.split("; ")
+					.find((row) => row.startsWith(`username-${roomCode}`))
+					.split("=")[1],
 				availableDays: dates,
 				userId: document.cookie
 					.split("; ")
@@ -152,6 +154,7 @@ const submitDates = async (dates) => {
 			sorted
 		);
 	}
+	console.log(document.cookie);
 };
 
 const refresh = async () => {
@@ -268,7 +271,4 @@ submit.onclick = () => {
 		}
 	}
 	submitDates(invertDates([...selectedDays]));
-
-	console.log("selectedDays ", selectedDays);
-	console.log("selectedDays ", invertDates([...selectedDays]));
 };
