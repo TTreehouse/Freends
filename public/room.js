@@ -1,5 +1,5 @@
-const roomTitle = document.querySelector(".title");
 const roomIdText = document.querySelector(".room-id");
+const roomTitle = document.querySelector(".title");
 const calenderContainer = document.querySelector(".calender-container");
 const daySelectors = document.querySelectorAll(".day-container");
 const submit = document.querySelector(".btn");
@@ -18,8 +18,6 @@ let roomCode = window.location.href.substring(
 	window.location.href.length - 36,
 	window.location.length
 );
-
-//
 
 let daysOfWeek = [
 	"sunday",
@@ -101,7 +99,7 @@ const highlight = (day, i) => {
 			1
 		);
 	} //check for dull red square
-	else if (day.style.backgroundColor === "rgba(252, 81, 48, 0.6)") {
+	else if (day.style.backgroundColor === "rgba(249, 57, 67, 0.6)") {
 		day.style.backgroundColor = "rgba(239, 241, 243, 0.87)"; //set bright white
 		return selectedDays.splice(
 			selectedDays.indexOf(selectedDays.indexOf(i)),
@@ -123,7 +121,6 @@ const indexOfDay = (_day) => {
 };
 
 const submitDates = async (dates) => {
-	console.log(userID);
 	if (!userID) {
 		let response = await postData(baseURL + "api/rooms/adduser", {
 			id: roomCode,
