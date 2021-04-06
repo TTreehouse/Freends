@@ -182,7 +182,7 @@ const checkCode = async (code) => {
 		history.pushState(
 			{ additionalInformation: "Updated the URL with JS" },
 			response.roomName,
-			window.location + "?id=" + response.roomId
+			window.location + "/room?id=" + response.roomId
 		);
 		loadingSym.style.display = "none";
 		history.go(0);
@@ -229,7 +229,7 @@ const createRoom = async () => {
 		history.pushState(
 			{ additionalInformation: "Updated the URL with JS" },
 			response.roomName,
-			window.location + "?id=" + response.roomId
+			window.location + "/room?id=" + response.roomId
 		);
 		history.go(0);
 	}
