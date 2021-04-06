@@ -1,5 +1,4 @@
 import mongoose = require("mongoose");
-import { v4 as uuidv4 } from "uuid";
 
 let Room: mongoose.Model<IRoom>;
 
@@ -14,10 +13,13 @@ interface IRoom extends mongoose.Document {
 export { MongoSetup, Room, IRoom };
 
 let MongoSetup = () => {
-	mongoose.connect("mongodb://localhost:27017/freends", {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	});
+	mongoose.connect(
+		"mongodb+srv://application:dvWGxZrac1uA8d41@freends.l5l9r.mongodb.net/Freends?retryWrites=true&w=majority",
+		{
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		}
+	);
 	const db = mongoose.connection;
 
 	db.on("error", console.error.bind(console, "connection error: "));

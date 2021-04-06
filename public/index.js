@@ -9,7 +9,7 @@ const input8 = inputs[0];
 const inputs4 = [inputs[1], inputs[2], inputs[3]];
 const input12 = inputs[4];
 
-const roomURL = "http://localhost:3000/room?id=";
+const roomURL = "https://www.freends.me/room?id=";
 
 const hellos = [
 	"Marhaba",
@@ -71,12 +71,6 @@ header.textContent = `${
 
 //code example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
-// async function clipboard() {
-// 	const text = await navigator.clipboard.readText();
-// 	if ()
-// 	return text;
-// }
-
 loadingSym.style.display = "none";
 
 const postData = async (url, data = {}) => {
@@ -88,7 +82,11 @@ const postData = async (url, data = {}) => {
 			},
 			body: JSON.stringify(data),
 		});
-		return response;
+		if (!response.ok) {
+			throw new error(response);
+		} else {
+			return response.json();
+		}
 	} catch (error) {
 		return error;
 	}
@@ -163,44 +161,32 @@ const checkCode = async (code) => {
 		input.style.color = "rgba(255, 250, 255, 0.38)";
 	});
 
-	let response = postData("http://25.20.184.203:3000/api/rooms/", {
+	let response = await postData("https://www.freends.me/api/rooms/", {
 		id: apiCode,
-	}).then((response) => {
-		if (!response.ok) {
-			console.log(response.status);
-			switch (response.status) {
-				case 400:
-					errorField.textContent = "room not found";
-					break;
-				case 404:
-					errorField.textContent = "fatal server error";
-					break;
-				default:
-					errorField.textContent = "connection timed out";
-			}
-			console.log("err", response);
-			loadingSym.style.display = "none";
-			username.style.color = "rgba(255, 250, 255, 0.87)";
-			username.disabled = false;
-			inputs.forEach((input) => {
-				input.style.color = "rgba(255, 250, 255, 0.87)";
-				input.disabled = false;
-				input.value = "";
-				input.addEventListener("input", () => {
-					errorField.textContent = "";
-				});
-			});
-		} else {
-			console.log("ok", response);
-			window.history.pushState(
-				{ additionalInformation: "Updated the URL with JS" },
-				response.roomName,
-				roomURL + response.roomId
-			);
-			loadingSym.style.display = "none";
-			window.history.go(0);
-		}
 	});
+
+	if (response instanceof Error) {
+		errorField.textContent = "room not found";
+		loadingSym.style.display = "none";
+		username.style.color = "rgba(255, 250, 255, 0.87)";
+		username.disabled = false;
+		inputs.forEach((input) => {
+			input.style.color = "rgba(255, 250, 255, 0.87)";
+			input.disabled = false;
+			input.value = "";
+			input.addEventListener("input", () => {
+				errorField.textContent = "";
+			});
+		});
+	} else {
+		window.history.pushState(
+			{ additionalInformation: "Updated the URL with JS" },
+			response.roomName,
+			roomURL + response.roomId
+		);
+		loadingSym.style.display = "none";
+		window.history.go(0);
+	}
 };
 
 const badRoom = () => {
@@ -229,29 +215,27 @@ const createRoom = async () => {
 	username.style.color = "rgba(255, 250, 255, 0.38)";
 	roomName.style.color = "rgba(255, 250, 255, 0.38)";
 
-	const response = postData("http://25.20.184.203:3000/api/rooms/createroom", {
+	const response = await postData("https://freends.me/api/rooms/createroom", {
 		name: roomName.value,
-	}).then((response) => {
-		if (!response.ok) {
-			console.log("not ok ", response);
-			loadingSym.style.display = "none";
-			errorField.textContent = "fatal server error";
-		} else {
-			console.log(response.json());
-			loadingSym.style.display = "none";
-			window.history.pushState(
-				{ additionalInformation: "Updated the URL with JS" },
-				response.roomName,
-				roomURL + response.json().roomId
-			);
-			window.history.go(0);
-		}
-
-		username.style.color = "rgba(255, 250, 255, 1)";
-		roomName.style.color = "rgba(255, 250, 255, 1)";
-		username.disabled = false;
-		roomName.disabled = false;
 	});
+
+	if (response instanceof Error) {
+		errorField.textContent = "fatal server error";
+	} else {
+		loadingSym.style.display = "none";
+		history.pushState(
+			{ additionalInformation: "Updated the URL with JS" },
+			response.roomName,
+			roomURL + response.roomId
+		);
+		history.go(0);
+	}
+
+	username.style.color = "rgba(255, 250, 255, 1)";
+	roomName.style.color = "rgba(255, 250, 255, 1)";
+	username.disabled = false;
+	roomName.disabled = false;
+	loadingSym.style.display = "none";
 };
 
 inputs4.forEach((element) => {

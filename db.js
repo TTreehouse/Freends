@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 let Room;
 exports.Room = Room;
 let MongoSetup = () => {
-    mongoose.connect("mongodb://localhost:27017/freends", {
+    mongoose.connect("mongodb+srv://application:dvWGxZrac1uA8d41@freends.l5l9r.mongodb.net/Freends?retryWrites=true&w=majority", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });

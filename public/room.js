@@ -59,7 +59,7 @@ const sortBest = (data) => {
 };
 
 const setUpRoom = async () => {
-	let roomData = await postData("http://25.20.184.203:3000/api/rooms", {
+	let roomData = await postData("https://www.freends.me/api/rooms", {
 		id: roomCode,
 	});
 
@@ -117,16 +117,13 @@ const indexOfDay = (_day) => {
 const submitDates = async (dates) => {
 	console.log(userID);
 	if (!userID) {
-		let response = await postData(
-			"http://25.20.184.203:3000/api/rooms/adduser",
-			{
-				id: roomCode,
-				user: {
-					name: "Jimmy",
-					availableDays: dates,
-				},
-			}
-		);
+		let response = await postData("https://www.freends.me/api/rooms/adduser", {
+			id: roomCode,
+			user: {
+				name: "Jimmy",
+				availableDays: dates,
+			},
+		});
 		userID = response.users[response.users.length - 1].userId;
 		let sorted = sortBest(response);
 		setupDays(
@@ -156,7 +153,7 @@ const submitDates = async (dates) => {
 };
 
 const refresh = async () => {
-	let response = await postData("http://25.20.184.203:3000/api/rooms/", {
+	let response = await postData("http://www.freends.me/api/rooms/", {
 		id: roomCode,
 	});
 	let sorted = sortBest(response);
