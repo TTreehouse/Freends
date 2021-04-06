@@ -6,12 +6,9 @@ const roomHandler_1 = require("../../roomHandler");
 const router = express.Router();
 module.exports = router;
 router.post("/", async (req, res) => {
-    console.log(req.body);
     try {
         if ("id" in req.body) {
             const room = await db_1.Room.findOne({ roomId: req.body.id });
-            console.log(req.body.id);
-            console.log(room);
             if (room != null && room != undefined) {
                 return res.json(room).end();
             }
@@ -24,12 +21,11 @@ router.post("/", async (req, res) => {
         }
     }
     catch (err) {
-        console.log(err);
+        console.error(err);
         return res.status(500).send("INTERNAL SERVER ERROR").end();
     }
 });
 router.post("/createRoom", (req, res) => {
-    console.log(req.body);
     try {
         if ("name" in req.body) {
             const room = new db_1.Room();
@@ -56,12 +52,11 @@ router.post("/createRoom", (req, res) => {
         return res.status(400).send("BAD REQUEST: Missing room name").end();
     }
     catch (err) {
-        console.log(err);
+        console.error(err);
         return res.status(500).send("INTERNAL SERVER ERROR").end();
     }
 });
 router.post("/addUser", async (req, res) => {
-    console.log(req.body);
     try {
         if ("user" in req.body) {
             if ("id" in req.body) {
@@ -144,7 +139,7 @@ router.post("/addUser", async (req, res) => {
         }
     }
     catch (err) {
-        console.log(err);
+        console.error(err);
         return res.status(500).send("INTERNAL SERVER ERROR").end();
     }
 });

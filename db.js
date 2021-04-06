@@ -9,7 +9,6 @@ let MongoSetup = () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
-    console.log("here");
     const db = mongoose.connection;
     db.on("error", console.error.bind(console, "connection error: "));
     db.once("open", async () => {

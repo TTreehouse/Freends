@@ -20,7 +20,6 @@ let MongoSetup = () => {
 			useUnifiedTopology: true,
 		}
 	);
-	console.log("here");
 	const db = mongoose.connection;
 
 	db.on("error", console.error.bind(console, "connection error: "));
