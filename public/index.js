@@ -59,7 +59,7 @@ const hellos = [
 	"Hello",
 	"ahoj",
 	"Pozdravljeni",
-	"annyeonghaseyo"
+	"Annyeonghaseyo",
 	"Hola",
 	"halo",
 	"Sawa",
