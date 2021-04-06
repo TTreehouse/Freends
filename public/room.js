@@ -294,17 +294,22 @@ backBtn.addEventListener("click", () => {
 });
 
 function copy() {
-	let linkURL = document.createElement("meta");
-	linkURL.setAttribute("property", "og:url");
-	linkURL.content = window.location;
+	// let linkURL = document.createElement("meta");
+	// linkURL.setAttribute("property", "og:url");
+	// linkURL.content = window.location;
 
-	let linkTitle = document.createElement("meta");
-	linkTitle.setAttribute("property", "og:title");
-	linkTitle.content = "Freends - find when friends are free";
+	// let linkTitle = document.createElement("meta");
+	// linkTitle.setAttribute("property", "og:title");
+	// linkTitle.content = "Freends - find when friends are free";
 
-	const head = document.querySelector("head");
-	head.appendChild(linkURL);
-	head.appendChild(linkTitle);
+	// let linkType = document.createElement("meta");
+	// linkTitle.setAttribute("property", "og:type");
+	// linkTitle.content = "website";
+
+	// const head = document.querySelector("head");
+	// head.appendChild(linkURL);
+	// head.appendChild(linkTitle);
+	// head.appendChild(linkType);
 
 	const textHolder = document.createElement("textarea");
 	textHolder.value = window.location;
