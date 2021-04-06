@@ -38,6 +38,16 @@ app.use(express.json());
 app.use(cookieParser(cookieSecret));
 app.use(express.urlencoded({ extended: true }));
 
+//Routes non www requests to www requests
+app.all(/.*/, function (req, res, next) {
+	var host = req.header("host");
+	if (host.match(/^www\..*/i)) {
+		next();
+	} else {
+		res.redirect(301, "http://www." + host);
+	}
+});
+
 // Loads the file ./routes/api/rooms to handle requests at /api/rooms
 app.use("/api/rooms", require("./routes/api/rooms"));
 
