@@ -4,6 +4,9 @@ import cookieParser = require("cookie-parser");
 import fs = require("fs");
 import { MongoSetup } from "./db";
 import sslRedirect from "heroku-ssl-redirect";
+import expressSitemapXml = require("express-sitemap-xml");
+var robots = require("robots.txt");
+
 const app = express();
 
 export { cookieSecret };
@@ -23,6 +26,13 @@ MongoSetup();
 
 app.use(sslRedirect());
 app.use(cors());
+
+app.use(
+	expressSitemapXml(() => {
+		return ["/"];
+	}, "https://freends.me")
+);
+app.use(robots(__dirname + "/robots.txt"));
 
 app.use(express.json());
 app.use(cookieParser(cookieSecret));

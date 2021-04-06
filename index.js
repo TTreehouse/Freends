@@ -7,6 +7,8 @@ const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const db_1 = require("./db");
 const heroku_ssl_redirect_1 = require("heroku-ssl-redirect");
+const expressSitemapXml = require("express-sitemap-xml");
+var robots = require("robots.txt");
 const app = express();
 let cookieSecret;
 exports.cookieSecret = cookieSecret;
@@ -21,6 +23,10 @@ else {
 db_1.MongoSetup();
 app.use(heroku_ssl_redirect_1.default());
 app.use(cors());
+app.use(expressSitemapXml(() => {
+    return ["/"];
+}, "https://freends.me"));
+app.use(robots(__dirname + "/robots.txt"));
 app.use(express.json());
 app.use(cookieParser(cookieSecret));
 app.use(express.urlencoded({ extended: true }));
