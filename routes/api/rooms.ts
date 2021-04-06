@@ -66,6 +66,12 @@ router.post("/createRoom", (req, res) => {
 router.post("/addUser", async (req, res) => {
 	try {
 		if ("user" in req.body) {
+			if (req.body.user.length > 20) {
+				return res
+					.status(400)
+					.send("BAD REQUEST: User name exceeded maximum character length")
+					.end();
+			}
 			if ("id" in req.body) {
 				const room = await Room.findOne({ roomId: req.body.id });
 				if (room != null && room != undefined) {
