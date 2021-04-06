@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>freends</title>
+		<link rel="stylesheet" href="/styles.css" />
+	</head>
+	<body>
+		<header>
+			<h1 class="title welcome"></h1>
+		</header>
+		<div class="wrapper col">
+			<div class="flex-row">
+				<input class="name name-input" type="text" placeholder="your name" />
+			</div>
+			<div class="sub-wrapper col">
+				<div class="sub-title">enter a room code</div>
+				<div class="flex-row" spellcheck="false">
+					<input type="text" class="input-field char8" />
+					<input type="text" class="input-field char4" />
+					<input type="text" class="input-field char4" />
+					<input type="text" class="input-field char4" />
+					<input type="text" class="input-field char12" />
+				</div>
+				<div class="pos-relative flex-row users load-error-container">
+					<div class="pos-absolute error"></div>
+					<div class="pos-absolute">
+						<div class="lds-ellipsis load-sym">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="sub-title">or</div>
+			<div class="flex-row">
+				<input
+					class="room-name name-input"
+					type="text"
+					placeholder="room name"
+					maxlength="20"
+				/>
+			</div>
+			<div class="create btn" data-popup-trigger="one">create room</div>
+		</div>
+	</body>
+	<script src="index.js"></script>
+</html>

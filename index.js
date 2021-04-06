@@ -27,6 +27,7 @@ app.use(cookieParser(cookieSecret));
 app.use(express.urlencoded({ extended: true }));
 // Loads the file ./routes/api/members to handle requests at /api/members
 app.use("/api/rooms", require("./routes/api/rooms"));
+app.use(express.static("public", { extensions: ["html"] }));
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on ${PORT}`));
 app.get("/secure", (req, res) => {

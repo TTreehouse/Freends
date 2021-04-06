@@ -1,0 +1,306 @@
+const header = document.querySelector(".welcome");
+const inputs = document.querySelectorAll(".input-field");
+const createBtn = document.querySelector(".create");
+const username = document.querySelector(".name");
+const roomName = document.querySelector(".room-name");
+const errorField = document.querySelector(".error");
+const loadingSym = document.querySelector(".load-sym");
+const input8 = inputs[0];
+const inputs4 = [inputs[1], inputs[2], inputs[3]];
+const input12 = inputs[4];
+
+const roomURL = "http://localhost:3000/room?id=";
+
+const hellos = [
+	"Marhaba",
+	"Grüß Gott",
+	"Namaskar",
+	"Zdraveite",
+	"Hola",
+	"Hafa adai",
+	"Nǐ hǎo",
+	"God dag",
+	"Hoi",
+	"Hallo",
+	"hyvää päivää",
+	"Bonjour",
+	"Dia dhuit",
+	"Guten tag",
+	"Yasou",
+	"Shalom",
+	"Namaste",
+	"Jo napot",
+	"Góðan dag",
+	"Nde-ewo",
+	"Selamat siang",
+	"Salve",
+	"Konnichiwa",
+	"Ahn nyong ha se yo",
+	"Salve",
+	"Sveiki",
+	"Moïen",
+	"Bonġu",
+	"Niltze",
+	"Namastē",
+	"Hallo",
+	"Salam",
+	"Cześć",
+	"Olá",
+	"Bună ziua",
+	"Zdravstvuyte",
+	"Zdravo",
+	"Ahoj",
+	"Hola",
+	"Hujambo",
+	"Hallå",
+	"Ia orna",
+	"Sawasdee",
+	"Avuxeni",
+	"Merhaba",
+	"Zdravstvuyte",
+	"Assalamo aleikum",
+	"Xin chào",
+	"Shwmae",
+	"Zulu",
+	"Sawubona",
+];
+
+header.textContent = `${
+	hellos[Math.floor(Math.random() * hellos.length)]
+}, welcome to freends`;
+
+//code example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+
+// async function clipboard() {
+// 	const text = await navigator.clipboard.readText();
+// 	if ()
+// 	return text;
+// }
+
+loadingSym.style.display = "none";
+
+const postData = async (url, data = {}) => {
+	try {
+		const response = await fetch(url, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+		});
+		return response;
+	} catch (error) {
+		return error;
+	}
+};
+
+const lockInput = (e, limit) => {
+	e.target.value = e.target.value.replace(/[\W_]+/g, "");
+	if (e.target.value.length > limit) {
+		e.target.value = e.target.value.substring(0, limit);
+
+		if (limit !== 12) {
+			e.target.nextElementSibling.focus();
+		}
+	}
+
+	e.target.value = e.target.value.toLowerCase();
+};
+
+const emptyField = (field) => {
+	field.classList.add("empty-field");
+	if (!/\*/g.test(field.placeholder)) {
+		field.placeholder += "*";
+	}
+	field.addEventListener("input", () => {
+		field.placeholder = field.placeholder.replace(/\*/g, "");
+		field.classList.remove("empty-field");
+	});
+};
+
+const handlePaste = (code) => {
+	input8.value = code.substring(0, 8);
+	input12.value = code.substring(20, 32);
+	for (let i = 0; i < 3; i++) {
+		inputs4[i].value = code.substring(8 + i * 4, 12 + i * 4);
+	}
+	checkCode(code);
+};
+
+const checkCode = async (code) => {
+	if (!code) {
+		code =
+			input8.value +
+			inputs4[0].value +
+			inputs4[1].value +
+			inputs[2].value +
+			input12.value;
+	}
+	apiCode =
+		input8.value +
+		"-" +
+		inputs4[0].value +
+		"-" +
+		inputs4[1].value +
+		"-" +
+		inputs4[2].value +
+		"-" +
+		input12.value;
+
+	if (code.length !== 32) {
+		return;
+	}
+	if (!username.value) {
+		return emptyField(username);
+	}
+
+	loadingSym.style.display = "block";
+	username.disabled = true;
+	username.style.color = "rgba(255, 250, 255, 0.38)";
+
+	inputs.forEach((input) => {
+		input.disabled = true;
+		input.style.color = "rgba(255, 250, 255, 0.38)";
+	});
+
+	let response = postData("http://25.20.184.203:3000/api/rooms/", {
+		id: apiCode,
+	}).then((response) => {
+		if (!response.ok) {
+			console.log(response.status);
+			switch (response.status) {
+				case 400:
+					errorField.textContent = "room not found";
+					break;
+				case 404:
+					errorField.textContent = "fatal server error";
+					break;
+				default:
+					errorField.textContent = "connection timed out";
+			}
+			console.log("err", response);
+			loadingSym.style.display = "none";
+			username.style.color = "rgba(255, 250, 255, 0.87)";
+			username.disabled = false;
+			inputs.forEach((input) => {
+				input.style.color = "rgba(255, 250, 255, 0.87)";
+				input.disabled = false;
+				input.value = "";
+				input.addEventListener("input", () => {
+					errorField.textContent = "";
+				});
+			});
+		} else {
+			console.log("ok", response);
+			window.history.pushState(
+				{ additionalInformation: "Updated the URL with JS" },
+				response.roomName,
+				roomURL + response.roomId
+			);
+			loadingSym.style.display = "none";
+			window.history.go(0);
+		}
+	});
+};
+
+const badRoom = () => {
+	inputs.forEach((field) => {
+		field.value = "";
+	});
+};
+
+const createRoom = async () => {
+	if (!username.value && !roomName.value) {
+		emptyField(username);
+		return emptyField(roomName);
+	}
+
+	if (!roomName.value) {
+		return emptyField(roomName);
+	}
+	if (!username.value) {
+		return emptyField(username);
+	}
+
+	loadingSym.style.display = "block";
+	username.disabled = true;
+	roomName.disabled = true;
+
+	username.style.color = "rgba(255, 250, 255, 0.38)";
+	roomName.style.color = "rgba(255, 250, 255, 0.38)";
+
+	const response = postData("http://25.20.184.203:3000/api/rooms/createroom", {
+		name: roomName.value,
+	}).then((response) => {
+		if (!response.ok) {
+			console.log("not ok ", response);
+			loadingSym.style.display = "none";
+			errorField.textContent = "fatal server error";
+		} else {
+			console.log(response.json());
+			loadingSym.style.display = "none";
+			window.history.pushState(
+				{ additionalInformation: "Updated the URL with JS" },
+				response.roomName,
+				roomURL + response.json().roomId
+			);
+			window.history.go(0);
+		}
+
+		username.style.color = "rgba(255, 250, 255, 1)";
+		roomName.style.color = "rgba(255, 250, 255, 1)";
+		username.disabled = false;
+		roomName.disabled = false;
+	});
+};
+
+inputs4.forEach((element) => {
+	element.addEventListener("input", (e) => {
+		let code = e.target.value.replace(/-/g, "");
+		if (code.length === 32) {
+			handlePaste(code);
+		} else if (e.target.value.length === 4) {
+			checkCode();
+		}
+		lockInput(e, 4);
+	});
+});
+
+input12.addEventListener("input", (e) => {
+	let code = e.target.value.replace(/-/g, "");
+	if (code.length === 32) {
+		handlePaste(code);
+	} else if (e.target.value.length === 12) {
+		checkCode();
+	}
+	lockInput(e, 12);
+});
+
+input8.addEventListener("input", (e) => {
+	let code = e.target.value.replace(/-/g, "");
+	if (code.length === 32) {
+		handlePaste(code);
+	} else if (e.target.value.length === 8) {
+		checkCode();
+	}
+	lockInput(e, 8);
+});
+
+inputs.forEach((input) => {
+	input.addEventListener("input", () => {
+		errorField.textContent = "";
+	});
+});
+
+username.addEventListener("change", () => {
+	checkCode();
+});
+
+createBtn.addEventListener("click", () => {
+	createRoom();
+	errorField.textContent = "";
+});
+
+roomName.addEventListener("input", () => {
+	errorField.textContent = "";
+});
