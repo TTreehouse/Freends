@@ -23,7 +23,7 @@ h2 {
 	font-size: 1rem;
 	display: inline;
 
-	color: rgba(255, 250, 255, 0.6);
+	color: rgba(239, 241, 243, 0.6);
 	margin: 0px;
 }
 
@@ -51,7 +51,7 @@ h2 {
 	text-align: center;
 	user-select: none;
 
-	color: rgba(255, 250, 255, 0.87);
+	color: rgba(239, 241, 243, 0.87);
 
 	margin: 15px;
 }
@@ -124,7 +124,7 @@ h2 {
 }
 
 .name-input::placeholder {
-	color: rgba(255, 250, 255 0.38);
+	color: rgba(239, 241, 243 0.38);
 }
 
 .empty-field::placeholder {

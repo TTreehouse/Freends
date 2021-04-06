@@ -69,7 +69,7 @@ const setUpRoom = async () => {
 	});
 
 	roomTitle.textContent = roomData.roomName;
-	webTitle.textContent = "freends: " + roomData.roomName;
+	webTitle.textContent = "Freends - " + roomData.roomName;
 	roomIdText.textContent = roomData.roomId;
 
 	setupCalendar(
