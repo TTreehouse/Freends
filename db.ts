@@ -6,6 +6,7 @@ interface IRoom extends mongoose.Document {
 	roomId: string;
 	roomName: string;
 	startDate: number;
+	ISODate: string;
 	bestDays: { day: number; users: string[]; userCount: number }[];
 	users: { name: string; userId: string; availableDays: number[] }[];
 }
@@ -29,6 +30,7 @@ let MongoSetup = () => {
 			roomId: String,
 			roomName: String,
 			startDate: Number,
+			ISODate: String,
 			bestDays: {
 				type: [{ day: Number, users: { type: [String] }, userCount: Number }],
 			},
