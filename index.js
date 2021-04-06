@@ -6,6 +6,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const db_1 = require("./db");
+const heroku_ssl_redirect_1 = require("heroku-ssl-redirect");
 const app = express();
 let cookieSecret;
 exports.cookieSecret = cookieSecret;
@@ -18,14 +19,12 @@ else {
 }
 //Init Db
 db_1.MongoSetup();
-// init middleware
-//app.use(logger);
+app.use(heroku_ssl_redirect_1.default());
 app.use(cors());
-// Initialize body parser middleware
 app.use(express.json());
 app.use(cookieParser(cookieSecret));
 app.use(express.urlencoded({ extended: true }));
-// Loads the file ./routes/api/members to handle requests at /api/members
+// Loads the file ./routes/api/rooms to handle requests at /api/rooms
 app.use("/api/rooms", require("./routes/api/rooms"));
 app.use(express.static("public", { extensions: ["html"] }));
 const PORT = process.env.PORT || 3000;
