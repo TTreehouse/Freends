@@ -154,11 +154,11 @@ const checkCode = async (code) => {
 
 	loadingSym.style.display = "block";
 	username.disabled = true;
-	username.style.color = "rgba(255, 250, 255, 0.38)";
+	username.style.color = "rgba(239, 241, 243, 0.38)";
 
 	inputs.forEach((input) => {
 		input.disabled = true;
-		input.style.color = "rgba(255, 250, 255, 0.38)";
+		input.style.color = "rgba(239, 241, 243, 0.38)";
 	});
 
 	let response = await postData("https://www.freends.me/api/rooms/", {
@@ -182,7 +182,7 @@ const checkCode = async (code) => {
 		history.pushState(
 			{ additionalInformation: "Updated the URL with JS" },
 			response.roomName,
-			window.location + "/room?id=" + response.roomId
+			window.location + "room?id=" + response.roomId
 		);
 		loadingSym.style.display = "none";
 		history.go(0);
@@ -212,8 +212,8 @@ const createRoom = async () => {
 	username.disabled = true;
 	roomName.disabled = true;
 
-	username.style.color = "rgba(255, 250, 255, 0.38)";
-	roomName.style.color = "rgba(255, 250, 255, 0.38)";
+	username.style.color = "rgba(239, 241, 243, 0.87)";
+	roomName.style.color = "rgba(239, 241, 243, 0.38)";
 
 	const response = await postData(
 		"https://www.freends.me/api/rooms/createroom",
@@ -229,13 +229,13 @@ const createRoom = async () => {
 		history.pushState(
 			{ additionalInformation: "Updated the URL with JS" },
 			response.roomName,
-			window.location + "/room?id=" + response.roomId
+			window.location + "room?id=" + response.roomId
 		);
 		history.go(0);
 	}
 
-	username.style.color = "rgba(255, 250, 255, 1)";
-	roomName.style.color = "rgba(255, 250, 255, 1)";
+	username.style.color = "rgba(239, 241, 243, 1)";
+	roomName.style.color = "rgba(239, 241, 243, 1)";
 	username.disabled = false;
 	roomName.disabled = false;
 	loadingSym.style.display = "none";

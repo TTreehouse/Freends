@@ -10,12 +10,16 @@ const copyBtn = document.querySelector(".fa-copy");
 const refreshBtn = document.querySelector(".refresh");
 const webTitle = document.querySelector("title");
 
+const baseURL = "https://www.freends.me/";
+
 let userID = null;
 
 let roomCode = window.location.href.substring(
 	window.location.href.length - 36,
 	window.location.length
 );
+
+//
 
 let daysOfWeek = [
 	"sunday",
@@ -59,7 +63,7 @@ const sortBest = (data) => {
 };
 
 const setUpRoom = async () => {
-	let roomData = await postData("https://www.freends.me/api/rooms", {
+	let roomData = await postData(baseURL + "api/rooms", {
 		id: roomCode,
 	});
 
@@ -87,23 +91,25 @@ setUpRoom();
 // 	dayAvail.
 // }
 
-const select = (day) => {
-	if (day.style.backgroundColor === "rgb(252, 81, 48)") {
-		day.style.backgroundColor = "rgba(255, 250, 255, 0.6)";
+const highlight = (day) => {
+	//check for red square
+	if (day.style.backgroundColor === "rgb(249, 57, 67)") {
+		day.style.backgroundColor = "rgba(239, 241, 243, 0.6)"; //set default white
 		return selectedDays.splice(
 			selectedDays.indexOf(selectedDays.indexOf(day)),
 			1
 		);
-	} else if (day.style.backgroundColor === "rgba(252, 81, 48, 0.6)") {
-		day.style.backgroundColor = "rgba(255, 255, 255, 0.87)";
+	} //check for dull red square
+	else if (day.style.backgroundColor === "rgba(252, 81, 48, 0.6)") {
+		day.style.backgroundColor = "rgba(239, 241, 243, 0.87)"; //set bright white
 		return selectedDays.splice(
 			selectedDays.indexOf(selectedDays.indexOf(day)),
 			1
 		);
 	}
-	day.style.backgroundColor = "rgb(252, 81, 48)";
+	day.style.backgroundColor = "rgb(249, 57, 67)"; //set bright red
 
-	selectedDays.push(indexOfDay(day));
+	selectedDays.push(day);
 };
 
 const indexOfDay = (_day) => {
@@ -117,7 +123,7 @@ const indexOfDay = (_day) => {
 const submitDates = async (dates) => {
 	console.log(userID);
 	if (!userID) {
-		let response = await postData("https://www.freends.me/api/rooms/adduser", {
+		let response = await postData(baseURL + "api/rooms/adduser", {
 			id: roomCode,
 			user: {
 				name: "Jimmy",
@@ -132,17 +138,14 @@ const submitDates = async (dates) => {
 			sorted
 		);
 	} else {
-		let response = await postData(
-			"http://25.20.184.203:3000/api/rooms/adduser",
-			{
-				id: roomCode,
-				user: {
-					name: "Jimmy",
-					availableDays: dates,
-					userId: userID,
-				},
-			}
-		);
+		let response = await postData(baseURL + "api/rooms/adduser", {
+			id: roomCode,
+			user: {
+				name: "Jimmy",
+				availableDays: dates,
+				userId: userID,
+			},
+		});
 		let sorted = sortBest(response);
 		setupDays(
 			new Date(response.startDate).getDay(),
@@ -153,7 +156,7 @@ const submitDates = async (dates) => {
 };
 
 const refresh = async () => {
-	let response = await postData("http://www.freends.me/api/rooms/", {
+	let response = await postData(baseURL + "api/rooms/", {
 		id: roomCode,
 	});
 	let sorted = sortBest(response);
@@ -178,7 +181,7 @@ const setupCalendar = (startDay, startDate) => {
 
 		day.childNodes[3].textContent = date;
 
-		day.addEventListener("click", () => select(day));
+		day.addEventListener("click", () => highlight(i));
 	}
 };
 
@@ -194,7 +197,7 @@ const setupDays = (startDay, startDate, bestDays) => {
 		dayTitle.classList = "sub-title";
 		userContainer.classList = "users row";
 		dateTitle.style.fontSize = "0.5em";
-		dateTitle.style.color = "rgba(255, 250, 255, 0.6)";
+		dateTitle.style.color = "rgba(239, 241, 243, 0.6)";
 
 		dayTitle.textContent = daysOfWeek[(day.day + startDay) % 7];
 
@@ -260,13 +263,10 @@ copyBtn.addEventListener("click", copy);
 submit.onclick = () => {
 	for (day of daySelectors) {
 		if (selectedDays.includes(indexOfDay(day))) {
-			day.style.backgroundColor = "rgba(252, 81, 48, 0.6)";
+			day.style.backgroundColor = "rgba(249, 57, 67, 0.6)"; //dulls selected squares
 		} else {
-			day.style.backgroundColor = "rgba(255,250,255,0.6)";
+			day.style.backgroundColor = "rgba(239, 241, 243, 0.6)"; //resets all unselected squares to default;
 		}
 	}
-
 	submitDates(invertDates([...selectedDays]));
 };
-
-// setUpRoom();

@@ -3,7 +3,7 @@
 
 body {
 	margin: 0 0 0 0;
-	background-color: #121212;
+	background-color: #272727;
 }
 
 header {
@@ -101,7 +101,7 @@ h2 {
 
 	height: 95px;
 	width: 300px;
-	background-color: #30bced;
+	background-color: #009fb7;
 
 	margin: 15px;
 	user-select: none;
@@ -110,7 +110,7 @@ h2 {
 }
 
 .btn:hover {
-	background-color: #129cce;
+	background-color: #00c2e0;
 }
 
 .name-input::placeholder {
@@ -118,10 +118,10 @@ h2 {
 }
 
 .empty-field::placeholder {
-	color: rgba(252, 81, 48, 0.38);
+	color: rgba(249, 57, 67, 0.38);
 }
 .empty-field {
-	border-color: rgba(252, 81, 48, 1);
+	border-color: rgba(249, 57, 67, 1);
 }
 
 input {
@@ -132,10 +132,10 @@ input {
 	border: none;
 	background-color: transparent;
 	border-bottom: ridge;
-	border-color: rgba(255, 250, 255, 0.38);
-	color: rgba(255, 250, 255, 0.87);
+	border-color: rgba(239, 421, 243, 0.38);
+	color: rgba(239, 421, 243, 0.87);
 
-	background-color: rgba(255, 250, 255, 0.03);
+	background-color: rgba(239, 421, 243, 0.03);
 	padding-top: 0.75em;
 }
 
@@ -177,7 +177,7 @@ input {
 }
 
 .info-container:hover {
-	background-color: rgba(255, 250, 255, 0.02);
+	background-color: rgba(239, 421, 243, 0.02);
 }
 
 /* On Chrome */
@@ -209,7 +209,7 @@ input {
 	min-height: 25px;
 	min-width: 25px;
 
-	background-color: rgba(255, 250, 255, 0.6);
+	background-color: rgba(239, 421, 243, 0.6);
 	font-family: "roboto";
 	text-align: center;
 	box-shadow: 3px 5px 5px rgba(0, 0, 0, 0.22);
@@ -255,11 +255,11 @@ input {
 	margin: 5px;
 	font-family: "roboto";
 	font-weight: 400;
-	color: rgba(255, 250, 255, 0.6);
+	color: rgba(239, 421, 243, 0.6);
 }
 
 .icon {
-	color: rgba(255, 250, 255, 0.87);
+	color: rgba(239, 421, 243, 0.87);
 }
 
 .icon:hover {
@@ -270,7 +270,7 @@ input {
 .room-id {
 	font-family: "roboto";
 	font-weight: 400;
-	color: rgba(255, 250, 255, 0.87);
+	color: rgba(239, 421, 243, 0.87);
 }
 
 .back {
@@ -294,7 +294,7 @@ input {
 .error {
 	font-family: "roboto";
 	font-weight: 400;
-	color: rgb(252, 81, 48);
+	color: rgb(249, 57, 67);
 	user-select: none;
 }
 
@@ -310,7 +310,7 @@ input {
 	width: 13px;
 	height: 13px;
 	border-radius: 50%;
-	background: #cef;
+	background: #ebfcff;
 	animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {
