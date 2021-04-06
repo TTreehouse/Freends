@@ -6,6 +6,7 @@ import { MongoSetup } from "./db";
 import sslRedirect from "heroku-ssl-redirect";
 import expressSitemapXml = require("express-sitemap-xml");
 var robots = require("robots.txt");
+var compression = require("compression");
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(
 );
 app.use(robots(__dirname + "/robots.txt"));
 
+app.use(compression());
 app.use(express.json());
 app.use(cookieParser(cookieSecret));
 app.use(express.urlencoded({ extended: true }));

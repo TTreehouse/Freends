@@ -9,6 +9,7 @@ const db_1 = require("./db");
 const heroku_ssl_redirect_1 = require("heroku-ssl-redirect");
 const expressSitemapXml = require("express-sitemap-xml");
 var robots = require("robots.txt");
+var compression = require("compression");
 const app = express();
 let cookieSecret;
 exports.cookieSecret = cookieSecret;
@@ -27,6 +28,7 @@ app.use(expressSitemapXml(() => {
     return ["/"];
 }, "https://freends.me"));
 app.use(robots(__dirname + "/robots.txt"));
+app.use(compression());
 app.use(express.json());
 app.use(cookieParser(cookieSecret));
 app.use(express.urlencoded({ extended: true }));
