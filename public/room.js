@@ -179,7 +179,7 @@ const enterName = () => {
 		popUp.style.display = "none";
 	});
 	nameSubmit.addEventListener("click", () => {
-		if (!nameInput.value) {
+		if (!nameInput.value || !nameInput.value.replace(/\s/g, "").length) {
 			return emptyField(nameInput);
 		}
 		document.cookie = `username-${roomCode}=${nameInput.value}`;
@@ -189,6 +189,7 @@ const enterName = () => {
 
 const emptyField = (field) => {
 	field.classList.add("empty-field");
+	field.value = "";
 	if (!/\*/g.test(field.placeholder)) {
 		field.placeholder += "*";
 	}
@@ -319,5 +320,5 @@ if (
 		.split(";")
 		.some((item) => item.trim().startsWith(`userID-${roomCode}=`))
 ) {
-	enterName();
+	//enterName();
 }

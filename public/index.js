@@ -152,6 +152,7 @@ const lockInput = (e, limit) => {
 
 const emptyField = (field) => {
 	field.classList.add("empty-field");
+	field.value = "";
 	if (!/\*/g.test(field.placeholder)) {
 		field.placeholder += "*";
 	}
@@ -193,7 +194,7 @@ const checkCode = async (code) => {
 	if (code.length !== 32) {
 		return;
 	}
-	if (!username.value) {
+	if (!username.value || !username.value.replace(/\s/g, "").length) {
 		return emptyField(username);
 	}
 
@@ -244,15 +245,21 @@ const badRoom = () => {
 };
 
 const createRoom = async () => {
-	if (!username.value && !roomName.value) {
+	if (
+		(!username.value && !roomName.value) ||
+		(!username.value.replace(/\s/g, "").length && !roomName.value) ||
+		(!username.value && !roomName.value.replace(/\s/g, "").length) ||
+		(!username.value.replace(/\s/g, "").length &&
+			!roomName.value.replace(/\s/g, "").length)
+	) {
 		emptyField(username);
 		return emptyField(roomName);
 	}
 
-	if (!roomName.value) {
+	if (!roomName.value || !roomName.value.replace(/\s/g, "").length) {
 		return emptyField(roomName);
 	}
-	if (!username.value) {
+	if (!username.value || !username.value.replace(/\s/g, "").length) {
 		return emptyField(username);
 	}
 
