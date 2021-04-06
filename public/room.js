@@ -179,7 +179,7 @@ const enterName = () => {
 		popUp.style.display = "none";
 	});
 	nameSubmit.addEventListener("click", () => {
-		if (!nameInput.value || !username.value.replace(/\s/g, "").length) {
+		if (!nameInput.value || !nameInput.value.replace(/\s/g, "").length) {
 			return emptyField(nameInput);
 		}
 		document.cookie = `username-${roomCode}=${nameInput.value}`;
@@ -320,5 +320,5 @@ if (
 		.split(";")
 		.some((item) => item.trim().startsWith(`userID-${roomCode}=`))
 ) {
-	enterName();
+	//enterName();
 }
