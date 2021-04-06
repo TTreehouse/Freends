@@ -120,13 +120,13 @@ const submitDates = async (dates) => {
 			user: {
 				name: document.cookie
 					.split("; ")
-					.find((row) => row.startsWith(`username-${response.roomId}`))
+					.find((row) => row.startsWith(`username-${roomCode}`))
 					.split("=")[1],
 				availableDays: dates,
 			},
 		});
 		userID = response.users[response.users.length - 1].userId;
-		document.cookie = `userID-${response.roomId}=${userID}`;
+		document.cookie = `userID-${roomCode}=${userID}`;
 		let sorted = sortBest(response);
 		setupDays(
 			new Date(response.startDate).getDay(),
@@ -141,7 +141,7 @@ const submitDates = async (dates) => {
 				availableDays: dates,
 				userId: document.cookie
 					.split("; ")
-					.find((row) => row.startsWith(`userID-${response.roomId}`))
+					.find((row) => row.startsWith(`userID-${roomCode}`))
 					.split("=")[1],
 			},
 		});
