@@ -103,6 +103,12 @@ router.post("/addUser", async (req, res) => {
 							.send("BAD REQUEST: User information not in correct form")
 							.end();
 					}
+					if (user.name.length === 0 || !user.name.trim()) {
+						return res
+							.status(400)
+							.send("BAD REQUEST: User name cannot be blank")
+							.end();
+					}
 					let uniqueDays = [...new Set(user.availableDays)];
 					if (uniqueDays.length > 14) {
 						return res
