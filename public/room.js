@@ -92,6 +92,7 @@ setUpRoom();
 // }
 
 const highlight = (day, i) => {
+	console.log(day);
 	//check for red square
 	if (day.style.backgroundColor === "rgb(249, 57, 67)") {
 		day.style.backgroundColor = "rgba(239, 241, 243, 0.6)"; //set default white
