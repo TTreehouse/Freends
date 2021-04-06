@@ -29,7 +29,8 @@ app.use("/api/rooms", require("./routes/api/rooms"));
 app.use(express.static("public", { extensions: ["html"] }));
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on ${PORT}`));
-app.get("/secure", (req, res) => {
-    res.send("You are in");
+// 404 Page. Must be last as it catches all requests not otherwise handled.
+app.get("*", function (req, res) {
+    res.redirect("https://freends.me", 404);
 });
 //# sourceMappingURL=index.js.map
