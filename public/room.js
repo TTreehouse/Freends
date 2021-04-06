@@ -113,7 +113,11 @@ const indexOfDay = (_day) => {
 };
 
 const submitDates = async (dates) => {
-	if (!userID) {
+	if (
+		document.cookie
+			.split(";")
+			.some((item) => item.trim().startsWith(`userID-${roomCode}=`))
+	) {
 		let response = await postData(baseURL + "api/rooms/adduser", {
 			id: roomCode,
 			user: {
@@ -122,10 +126,12 @@ const submitDates = async (dates) => {
 					.find((row) => row.startsWith(`username-${roomCode}`))
 					.split("=")[1],
 				availableDays: dates,
+				userId: document.cookie
+					.split("; ")
+					.find((row) => row.startsWith(`userID-${roomCode}`))
+					.split("=")[1],
 			},
 		});
-		userID = response.users[response.users.length - 1].userId;
-		document.cookie = `userID-${roomCode}=${userID}`;
 		let sorted = sortBest(response);
 		setupDays(
 			new Date(response.startDate).getDay(),
@@ -141,12 +147,10 @@ const submitDates = async (dates) => {
 					.find((row) => row.startsWith(`username-${roomCode}`))
 					.split("=")[1],
 				availableDays: dates,
-				userId: document.cookie
-					.split("; ")
-					.find((row) => row.startsWith(`userID-${roomCode}`))
-					.split("=")[1],
 			},
 		});
+		userID = response.users[response.users.length - 1].userId;
+		document.cookie = `userID-${roomCode}=${userID}`;
 		let sorted = sortBest(response);
 		setupDays(
 			new Date(response.startDate).getDay(),
