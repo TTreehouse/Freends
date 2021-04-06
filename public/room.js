@@ -1,5 +1,5 @@
-const roomTitle = document.querySelector(".title");
 const roomIdText = document.querySelector(".room-id");
+const roomTitle = document.querySelector(".title");
 const calenderContainer = document.querySelector(".calender-container");
 const daySelectors = document.querySelectorAll(".day-container");
 const submit = document.querySelector(".btn");
@@ -18,8 +18,6 @@ let roomCode = window.location.href.substring(
 	window.location.href.length - 36,
 	window.location.length
 );
-
-//
 
 let daysOfWeek = [
 	"sunday",
@@ -91,25 +89,20 @@ setUpRoom();
 // 	dayAvail.
 // }
 
-const highlight = (day) => {
+const highlight = (day, i) => {
 	//check for red square
 	if (day.style.backgroundColor === "rgb(249, 57, 67)") {
 		day.style.backgroundColor = "rgba(239, 241, 243, 0.6)"; //set default white
-		return selectedDays.splice(
-			selectedDays.indexOf(selectedDays.indexOf(day)),
-			1
-		);
+		return selectedDays.splice(selectedDays.indexOf(i), 1);
 	} //check for dull red square
-	else if (day.style.backgroundColor === "rgba(252, 81, 48, 0.6)") {
+	else if (day.style.backgroundColor === "rgba(249, 57, 67, 0.6)") {
 		day.style.backgroundColor = "rgba(239, 241, 243, 0.87)"; //set bright white
-		return selectedDays.splice(
-			selectedDays.indexOf(selectedDays.indexOf(day)),
-			1
-		);
+		return selectedDays.splice(selectedDays.indexOf(i), 1);
 	}
 	day.style.backgroundColor = "rgb(249, 57, 67)"; //set bright red
 
-	selectedDays.push(day);
+	selectedDays.push(i);
+	console.log(selectedDays);
 };
 
 const indexOfDay = (_day) => {
@@ -121,7 +114,6 @@ const indexOfDay = (_day) => {
 };
 
 const submitDates = async (dates) => {
-	console.log(userID);
 	if (!userID) {
 		let response = await postData(baseURL + "api/rooms/adduser", {
 			id: roomCode,
@@ -181,7 +173,7 @@ const setupCalendar = (startDay, startDate) => {
 
 		day.childNodes[3].textContent = date;
 
-		day.addEventListener("click", () => highlight(i));
+		day.addEventListener("click", () => highlight(day, i));
 	}
 };
 
@@ -269,4 +261,7 @@ submit.onclick = () => {
 		}
 	}
 	submitDates(invertDates([...selectedDays]));
+
+	console.log("selectedDays ", selectedDays);
+	console.log("selectedDays ", invertDates([...selectedDays]));
 };
