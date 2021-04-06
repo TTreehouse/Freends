@@ -270,6 +270,7 @@ input {
 
 .icon {
 	color: rgba(239, 241, 243, 0.87);
+	position: absolute;
 }
 
 .icon:hover {
@@ -299,6 +300,13 @@ input {
 
 .pos-relative {
 	position: relative;
+}
+
+.copy-wrapper {
+	position: relative;
+	width: 100%;
+	display: inline;
+	margin: 5px;
 }
 
 .error {
