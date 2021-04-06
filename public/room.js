@@ -102,7 +102,6 @@ const highlight = (day, i) => {
 	day.style.backgroundColor = "rgb(249, 57, 67)"; //set bright red
 
 	selectedDays.push(i);
-	console.log(selectedDays);
 };
 
 const indexOfDay = (_day) => {
@@ -114,19 +113,25 @@ const indexOfDay = (_day) => {
 };
 
 const submitDates = async (dates) => {
-	if (!userID) {
+	if (
+		document.cookie
+			.split(";")
+			.some((item) => item.trim().startsWith(`userID-${roomCode}=`))
+	) {
 		let response = await postData(baseURL + "api/rooms/adduser", {
 			id: roomCode,
 			user: {
 				name: document.cookie
 					.split("; ")
-					.find((row) => row.startsWith(`username-${response.roomId}`))
+					.find((row) => row.startsWith(`username-${roomCode}`))
 					.split("=")[1],
 				availableDays: dates,
+				userId: document.cookie
+					.split("; ")
+					.find((row) => row.startsWith(`userID-${roomCode}`))
+					.split("=")[1],
 			},
 		});
-		userID = response.users[response.users.length - 1].userId;
-		document.cookie = `userID-${response.roomId}=${userID}`;
 		let sorted = sortBest(response);
 		setupDays(
 			new Date(response.startDate).getDay(),
@@ -137,14 +142,15 @@ const submitDates = async (dates) => {
 		let response = await postData(baseURL + "api/rooms/adduser", {
 			id: roomCode,
 			user: {
-				name: "Jimmy",
-				availableDays: dates,
-				userId: document.cookie
+				name: document.cookie
 					.split("; ")
-					.find((row) => row.startsWith(`userID-${response.roomId}`))
+					.find((row) => row.startsWith(`username-${roomCode}`))
 					.split("=")[1],
+				availableDays: dates,
 			},
 		});
+		userID = response.users[response.users.length - 1].userId;
+		document.cookie = `userID-${roomCode}=${userID}`;
 		let sorted = sortBest(response);
 		setupDays(
 			new Date(response.startDate).getDay(),
@@ -152,6 +158,7 @@ const submitDates = async (dates) => {
 			sorted
 		);
 	}
+	console.log(document.cookie);
 };
 
 const refresh = async () => {
@@ -268,7 +275,4 @@ submit.onclick = () => {
 		}
 	}
 	submitDates(invertDates([...selectedDays]));
-
-	console.log("selectedDays ", selectedDays);
-	console.log("selectedDays ", invertDates([...selectedDays]));
 };
