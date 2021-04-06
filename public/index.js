@@ -179,13 +179,13 @@ const checkCode = async (code) => {
 			});
 		});
 	} else {
-		window.history.pushState(
+		history.pushState(
 			{ additionalInformation: "Updated the URL with JS" },
 			response.roomName,
-			roomURL + response.roomId
+			window.location + "?id=" + response.roomId
 		);
 		loadingSym.style.display = "none";
-		window.history.go(0);
+		history.go(0);
 	}
 };
 
@@ -215,9 +215,12 @@ const createRoom = async () => {
 	username.style.color = "rgba(255, 250, 255, 0.38)";
 	roomName.style.color = "rgba(255, 250, 255, 0.38)";
 
-	const response = await postData("https://freends.me/api/rooms/createroom", {
-		name: roomName.value,
-	});
+	const response = await postData(
+		"https://www.freends.me/api/rooms/createroom",
+		{
+			name: roomName.value,
+		}
+	);
 
 	if (response instanceof Error) {
 		errorField.textContent = "fatal server error";
@@ -226,7 +229,7 @@ const createRoom = async () => {
 		history.pushState(
 			{ additionalInformation: "Updated the URL with JS" },
 			response.roomName,
-			roomURL + response.roomId
+			window.location + "?id=" + response.roomId
 		);
 		history.go(0);
 	}

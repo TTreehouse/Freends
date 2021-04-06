@@ -5,10 +5,11 @@ const mongoose = require("mongoose");
 let Room;
 exports.Room = Room;
 let MongoSetup = () => {
-    mongoose.connect("mongodb+srv://application:dvWGxZrac1uA8d41@freends.l5l9r.mongodb.net/Freends?retryWrites=true&w=majority", {
+    mongoose.connect("mongodb+srv://application:dvWGxZrac1uA8d41@freends.l5l9r.mongodb.net/freends?retryWrites=true&w=majority", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
+    console.log("here");
     const db = mongoose.connection;
     db.on("error", console.error.bind(console, "connection error: "));
     db.once("open", async () => {
