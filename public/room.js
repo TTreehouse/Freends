@@ -90,21 +90,14 @@ setUpRoom();
 // }
 
 const highlight = (day, i) => {
-	console.log(day);
 	//check for red square
 	if (day.style.backgroundColor === "rgb(249, 57, 67)") {
 		day.style.backgroundColor = "rgba(239, 241, 243, 0.6)"; //set default white
-		return selectedDays.splice(
-			selectedDays.indexOf(selectedDays.indexOf(i)),
-			1
-		);
+		return selectedDays.splice(selectedDays.indexOf(i), 1);
 	} //check for dull red square
 	else if (day.style.backgroundColor === "rgba(249, 57, 67, 0.6)") {
 		day.style.backgroundColor = "rgba(239, 241, 243, 0.87)"; //set bright white
-		return selectedDays.splice(
-			selectedDays.indexOf(selectedDays.indexOf(i)),
-			1
-		);
+		return selectedDays.splice(selectedDays.indexOf(i), 1);
 	}
 	day.style.backgroundColor = "rgb(249, 57, 67)"; //set bright red
 

@@ -132,10 +132,10 @@ input {
 	border: none;
 	background-color: transparent;
 	border-bottom: ridge;
-	border-color: rgba(239, 421, 243, 0.38);
-	color: rgba(239, 421, 243, 0.87);
+	border-color: rgba(239, 241, 243, 0.38);
+	color: rgba(239, 241, 243, 0.87);
 
-	background-color: rgba(239, 421, 243, 0.03);
+	background-color: rgba(239, 241, 243, 0.03);
 	padding-top: 0.75em;
 }
 
@@ -177,7 +177,7 @@ input {
 }
 
 .info-container:hover {
-	background-color: rgba(239, 421, 243, 0.02);
+	background-color: rgba(239, 241, 243, 0.02);
 }
 
 /* On Chrome */
@@ -209,7 +209,7 @@ input {
 	min-height: 25px;
 	min-width: 25px;
 
-	background-color: rgba(239, 421, 243, 0.6);
+	background-color: rgba(239, 241, 243, 0.6);
 	font-family: "roboto";
 	text-align: center;
 	box-shadow: 3px 5px 5px rgba(0, 0, 0, 0.22);
@@ -255,11 +255,11 @@ input {
 	margin: 5px;
 	font-family: "roboto";
 	font-weight: 400;
-	color: rgba(239, 421, 243, 0.6);
+	color: rgba(239, 241, 243, 0.6);
 }
 
 .icon {
-	color: rgba(239, 421, 243, 0.87);
+	color: rgba(239, 241, 243, 0.87);
 }
 
 .icon:hover {
@@ -270,7 +270,7 @@ input {
 .room-id {
 	font-family: "roboto";
 	font-weight: 400;
-	color: rgba(239, 421, 243, 0.87);
+	color: rgba(239, 241, 243, 0.87);
 }
 
 .back {
