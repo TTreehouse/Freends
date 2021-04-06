@@ -294,6 +294,18 @@ backBtn.addEventListener("click", () => {
 });
 
 function copy() {
+	let linkURL = document.createElement("meta");
+	linkURL.setAttribute("property", "og:url");
+	linkURL.content = window.location;
+
+	let linkTitle = document.createElement("meta");
+	linkTitle.setAttribute("property", "og:title");
+	linkTitle.content = "Freends - find when friends are free";
+
+	const head = document.querySelector("head");
+	head.appendChild(linkURL);
+	head.appendChild(linkTitle);
+
 	const textHolder = document.createElement("textarea");
 	textHolder.value = window.location;
 	document.body.appendChild(textHolder);
