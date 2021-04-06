@@ -9,6 +9,9 @@ const backBtn = document.querySelector(".back");
 const copyBtn = document.querySelector(".fa-copy");
 const refreshBtn = document.querySelector(".refresh");
 const webTitle = document.querySelector("title");
+const popUp = document.querySelector(".name-popup");
+const nameInput = document.querySelector(".pop-up-input");
+const nameSubmit = document.querySelector(".pop-up-btn");
 
 const baseURL = "https://www.freends.me/";
 
@@ -113,52 +116,86 @@ const indexOfDay = (_day) => {
 };
 
 const submitDates = async (dates) => {
-	if (
-		document.cookie
-			.split(";")
-			.some((item) => item.trim().startsWith(`userID-${roomCode}=`))
-	) {
-		let response = await postData(baseURL + "api/rooms/adduser", {
-			id: roomCode,
-			user: {
-				name: document.cookie
-					.split("; ")
-					.find((row) => row.startsWith(`username-${roomCode}`))
-					.split("=")[1],
-				availableDays: dates,
-				userId: document.cookie
-					.split("; ")
-					.find((row) => row.startsWith(`userID-${roomCode}`))
-					.split("=")[1],
-			},
-		});
-		let sorted = sortBest(response);
-		setupDays(
-			new Date(response.startDate).getDay(),
-			new Date(response.startDate),
-			sorted
-		);
-	} else {
-		let response = await postData(baseURL + "api/rooms/adduser", {
-			id: roomCode,
-			user: {
-				name: document.cookie
-					.split("; ")
-					.find((row) => row.startsWith(`username-${roomCode}`))
-					.split("=")[1],
-				availableDays: dates,
-			},
-		});
-		userID = response.users[response.users.length - 1].userId;
-		document.cookie = `userID-${roomCode}=${userID}`;
-		let sorted = sortBest(response);
-		setupDays(
-			new Date(response.startDate).getDay(),
-			new Date(response.startDate),
-			sorted
-		);
-	}
 	console.log(document.cookie);
+	try {
+		if (
+			document.cookie
+				.split(";")
+				.some((item) => item.trim().startsWith(`userID-${roomCode}=`))
+		) {
+			let response = await postData(baseURL + "api/rooms/adduser", {
+				id: roomCode,
+				user: {
+					name: document.cookie
+						.split("; ")
+						.find((row) => row.startsWith(`username-${roomCode}`))
+						.split("=")[1],
+					availableDays: dates,
+					userId: document.cookie
+						.split("; ")
+						.find((row) => row.startsWith(`userID-${roomCode}`))
+						.split("=")[1],
+				},
+			});
+			let sorted = sortBest(response);
+			setupDays(
+				new Date(response.startDate).getDay(),
+				new Date(response.startDate),
+				sorted
+			);
+		} else {
+			let response = await postData(baseURL + "api/rooms/adduser", {
+				id: roomCode,
+				user: {
+					name: document.cookie
+						.split("; ")
+						.find((row) => row.startsWith(`username-${roomCode}`))
+						.split("=")[1],
+					availableDays: dates,
+				},
+			});
+			userID = response.users[response.users.length - 1].userId;
+			document.cookie = `userID-${roomCode}=${userID}`;
+			let sorted = sortBest(response);
+			setupDays(
+				new Date(response.startDate).getDay(),
+				new Date(response.startDate),
+				sorted
+			);
+		}
+	} catch (error) {
+		enterName();
+		console.log(document.cookie);
+	}
+};
+
+const enterName = () => {
+	popUp.style.display = "block";
+	nameInput.addEventListener("change", () => {
+		if (!nameInput.value) {
+			return emptyField(nameInput);
+		}
+		document.cookie = `username-${roomCode}=${nameInput.value}`;
+		popUp.style.display = "none";
+	});
+	nameSubmit.addEventListener("click", () => {
+		if (!nameInput.value) {
+			return emptyField(nameInput);
+		}
+		document.cookie = `username-${roomCode}=${nameInput.value}`;
+		popUp.style.display = "none";
+	});
+};
+
+const emptyField = (field) => {
+	field.classList.add("empty-field");
+	if (!/\*/g.test(field.placeholder)) {
+		field.placeholder += "*";
+	}
+	field.addEventListener("input", () => {
+		field.placeholder = field.placeholder.replace(/\*/g, "");
+		field.classList.remove("empty-field");
+	});
 };
 
 const refresh = async () => {
@@ -276,3 +313,11 @@ submit.onclick = () => {
 	}
 	submitDates(invertDates([...selectedDays]));
 };
+
+if (
+	!document.cookie
+		.split(";")
+		.some((item) => item.trim().startsWith(`userID-${roomCode}=`))
+) {
+	enterName();
+}

@@ -375,3 +375,36 @@ input {
 		height: calc(100vh - 121px - 95px - 15px - 5em);
 	}
 }
+
+.fade-screen {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	background-color: rgba(39, 39, 39, 0.98);
+	top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pop-up {
+	flex: 1 1 3em;
+	max-width: 80%;
+	background-color: rgba(39, 39, 39, 1);
+	border: rgba(239, 241, 243, 0.87);
+	border-style: solid;
+}
+
+.pop-up-input {
+	font-size: 3em;
+	margin: 20px;
+	max-width: 80%;
+}
+.pop-up-btn {
+	height: 60px;
+	line-height: 60px;
+}
+
+.name-popup {
+	display: none;
+}
