@@ -110,6 +110,7 @@ const highlight = (day) => {
 	day.style.backgroundColor = "rgb(249, 57, 67)"; //set bright red
 
 	selectedDays.push(day);
+	console.log(selectedDays);
 };
 
 const indexOfDay = (_day) => {
@@ -269,4 +270,7 @@ submit.onclick = () => {
 		}
 	}
 	submitDates(invertDates([...selectedDays]));
+
+	console.log("selectedDays ", selectedDays);
+	console.log("selectedDays ", invertDates([...selectedDays]));
 };
