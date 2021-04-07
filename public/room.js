@@ -184,6 +184,14 @@ const enterName = () => {
 		}
 		document.cookie = `username-${roomCode}=${nameInput.value}`;
 		popUp.style.display = "none";
+		for (day of daySelectors) {
+			if (selectedDays.includes(indexOfDay(day))) {
+				day.style.backgroundColor = "rgba(249, 57, 67, 0.6)"; //dulls selected squares
+			} else {
+				day.style.backgroundColor = "rgba(239, 241, 243, 0.6)"; //resets all unselected squares to default;
+			}
+		}
+		submitDates(invertDates([...selectedDays]));
 	});
 };
 
