@@ -2,7 +2,7 @@ const roomIdText = document.querySelector(".room-id");
 const roomTitle = document.querySelector(".title");
 const calenderContainer = document.querySelector(".calender-container");
 const daySelectors = document.querySelectorAll(".day-container");
-const submit = document.querySelector(".btn");
+const submit = document.querySelector(".submit-btn");
 const availableContainer = document.querySelector(".available-container");
 const availDays = document.querySelectorAll(".avail-day");
 const backBtn = document.querySelector(".back");
@@ -179,6 +179,7 @@ const enterName = () => {
 		popUp.style.display = "none";
 	});
 	nameSubmit.addEventListener("click", () => {
+		console.log("click");
 		if (!nameInput.value || !nameInput.value.replace(/\s/g, "").length) {
 			return emptyField(nameInput);
 		}
