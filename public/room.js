@@ -191,7 +191,8 @@ const enterName = () => {
 				day.style.backgroundColor = "rgba(239, 241, 243, 0.6)"; //resets all unselected squares to default;
 			}
 		}
-		submitDates(invertDates([...selectedDays]));
+		//submitDates(invertDates([...selectedDays]));
+		console.log(submitDates(invertDates([...selectedDays])));
 	});
 };
 
