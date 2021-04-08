@@ -343,6 +343,7 @@ window.onload = async () => {
 	) {
 		try {
 			const response = await postData(baseURL + "api/rooms", { id: roomCode });
+			let availableDays = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13];
 
 			response.users.forEach((user) => {
 				if (
@@ -352,7 +353,7 @@ window.onload = async () => {
 						.find((row) => row.startsWith(`userID-${roomCode}`))
 						.split("=")[1]
 				) {
-					let availableDays = user.availableDays;
+					availableDays = user.availableDays;
 				}
 			});
 			console.log(availableDays);
