@@ -329,7 +329,7 @@ if (
 	//enterName();
 }
 
-window.onload = () => {
+window.onload = async () => {
 	if (
 		!document.cookie
 			.split(";")
@@ -343,31 +343,32 @@ window.onload = () => {
 			.some((item) => item.trim().startsWith(`userID-${roomCode}=`))
 	) {
 		try {
-			const response = await postData(baseURL + "api/rooms", { id: roomCode, });
-			
+			const response = await postData(baseURL + "api/rooms", { id: roomCode });
+
 			const availableDays = () => {
-				response.users.forEach(user => {
-					if (user.userId === document.cookie
-						.split("; ")
-						.find((row) => row.startsWith(`userID-${roomCode}`))
-						.split("=")[1]) {
-						
-						return user.availableDays
+				response.users.forEach((user) => {
+					if (
+						user.userId ===
+						document.cookie
+							.split("; ")
+							.find((row) => row.startsWith(`userID-${roomCode}`))
+							.split("=")[1]
+					) {
+						return user.availableDays;
 					}
-				})
+				});
 			};
 
-			availableDays = invertDates([...availableDays])
+			availableDays = invertDates([...availableDays]);
 			for (day of daySelectors) {
 				if (availableDays.includes(indexOfDay(day))) {
 					day.style.backgroundColor = "rgba(249, 57, 67, 0.6)"; //dulls selected squares
-				}else {
+				} else {
 					day.style.backgroundColor = "rgba(239, 241, 243, 0.6)"; //resets all unselected squares to default;
 				}
 			}
-			
 		} catch (err) {
-			console.log(err)
+			console.log(err);
 		}
 	}
 };
