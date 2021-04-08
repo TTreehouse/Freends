@@ -335,6 +335,11 @@ window.onload = async () => {
 	) {
 		enterName();
 	}
+	console.log(
+		document.cookie
+			.split(";")
+			.some((item) => item.trim().startsWith(`userID-${roomCode}=`))
+	);
 	if (
 		!document.cookie
 			.split(";")
@@ -343,19 +348,17 @@ window.onload = async () => {
 		try {
 			const response = await postData(baseURL + "api/rooms", { id: roomCode });
 
-			const availableDays = () => {
-				response.users.forEach((user) => {
-					if (
-						user.userId ===
-						document.cookie
-							.split("; ")
-							.find((row) => row.startsWith(`userID-${roomCode}`))
-							.split("=")[1]
-					) {
-						return user.availableDays;
-					}
-				});
-			};
+			response.users.forEach((user) => {
+				if (
+					user.userId ===
+					document.cookie
+						.split("; ")
+						.find((row) => row.startsWith(`userID-${roomCode}`))
+						.split("=")[1]
+				) {
+					let availableDays = user.availableDays;
+				}
+			});
 			console.log(availableDays);
 			availableDays = invertDates([...availableDays]);
 			console.log(availableDays);
