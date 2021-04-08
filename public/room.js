@@ -179,7 +179,6 @@ const enterName = () => {
 		popUp.style.display = "none";
 	});
 	nameSubmit.addEventListener("click", () => {
-		console.log("click");
 		if (!nameInput.value || !nameInput.value.replace(/\s/g, "").length) {
 			return emptyField(nameInput);
 		}
@@ -192,9 +191,6 @@ const enterName = () => {
 				day.style.backgroundColor = "rgba(239, 241, 243, 0.6)"; //resets all unselected squares to default;
 			}
 		}
-		console.log("line 194");
-		//submitDates(invertDates([...selectedDays]));
-		console.log(submitDates(invertDates([...selectedDays])));
 	});
 };
 
@@ -305,23 +301,6 @@ backBtn.addEventListener("click", () => {
 });
 
 function copy() {
-	// let linkURL = document.createElement("meta");
-	// linkURL.setAttribute("property", "og:url");
-	// linkURL.content = window.location;
-
-	// let linkTitle = document.createElement("meta");
-	// linkTitle.setAttribute("property", "og:title");
-	// linkTitle.content = "Freends - find when friends are free";
-
-	// let linkType = document.createElement("meta");
-	// linkTitle.setAttribute("property", "og:type");
-	// linkTitle.content = "website";
-
-	// const head = document.querySelector("head");
-	// head.appendChild(linkURL);
-	// head.appendChild(linkTitle);
-	// head.appendChild(linkType);
-
 	const textHolder = document.createElement("textarea");
 	textHolder.value = window.location;
 	document.body.appendChild(textHolder);
@@ -349,3 +328,13 @@ if (
 ) {
 	//enterName();
 }
+
+window.onload = () => {
+	if (
+		!document.cookie
+			.split(";")
+			.some((item) => item.trim().startsWith(`username-${roomCode}=`))
+	) {
+		enterName();
+	}
+};
