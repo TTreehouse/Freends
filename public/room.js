@@ -335,13 +335,9 @@ window.onload = async () => {
 	) {
 		enterName();
 	}
-	console.log(
-		document.cookie
-			.split(";")
-			.some((item) => item.trim().startsWith(`userID-${roomCode}=`))
-	);
+
 	if (
-		!document.cookie
+		document.cookie
 			.split(";")
 			.some((item) => item.trim().startsWith(`userID-${roomCode}=`))
 	) {
