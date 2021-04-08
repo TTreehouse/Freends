@@ -116,7 +116,6 @@ const indexOfDay = (_day) => {
 };
 
 const submitDates = async (dates) => {
-	console.log(document.cookie);
 	try {
 		if (
 			document.cookie
@@ -165,7 +164,6 @@ const submitDates = async (dates) => {
 		}
 	} catch (error) {
 		enterName();
-		console.log(document.cookie);
 	}
 };
 
@@ -358,8 +356,9 @@ window.onload = async () => {
 					}
 				});
 			};
-
+			console.log(availableDays);
 			availableDays = invertDates([...availableDays]);
+			console.log(availableDays);
 			for (day of daySelectors) {
 				if (availableDays.includes(indexOfDay(day))) {
 					day.style.backgroundColor = "rgba(249, 57, 67, 0.6)"; //dulls selected squares
