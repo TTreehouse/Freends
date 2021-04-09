@@ -356,9 +356,10 @@ window.onload = async () => {
 					availableDays = user.availableDays;
 				}
 			});
-			console.log(availableDays);
+
 			availableDays = invertDates([...availableDays]);
-			console.log(availableDays);
+			selectedDays = availableDays;
+
 			for (day of daySelectors) {
 				if (availableDays.includes(indexOfDay(day))) {
 					day.style.backgroundColor = "rgba(249, 57, 67, 0.6)"; //dulls selected squares
@@ -366,8 +367,6 @@ window.onload = async () => {
 					day.style.backgroundColor = "rgba(239, 241, 243, 0.6)"; //resets all unselected squares to default;
 				}
 			}
-		} catch (err) {
-			console.log(err);
-		}
+		} catch (err) {}
 	}
 };
