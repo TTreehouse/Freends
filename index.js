@@ -49,6 +49,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on ${PORT}`));
 // 404 Page. Must be last as it catches all requests not otherwise handled.
 app.get("*", function (req, res) {
-    res.redirect("https://freends.me");
+    res.redirect("/");
 });
 //# sourceMappingURL=index.js.map
