@@ -161,7 +161,7 @@ input {
 }
 
 .room-wrapper {
-	margin-top: 95px;
+	margin-top: 15px;
 	align-items: center;
 	align-items: flex-start;
 }
@@ -179,9 +179,10 @@ input {
 .info-container {
 	color: white;
 	margin: 15px;
+	margin-top: 0;
 	width: 100%;
 	border-color: aliceblue;
-	height: 35vh;
+	height: calc(100vh - 485px);
 	align-items: center;
 	justify-content: start;
 }
@@ -375,6 +376,9 @@ input {
 @media screen and (min-width: 900px) {
 	.calender-container {
 		width: calc(60.5% - 30px);
+	}
+	.room-wrapper {
+		margin-top: 95px;
 	}
 
 	.info-container {
