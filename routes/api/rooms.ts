@@ -52,7 +52,7 @@ router.post("/createRoom", (req, res) => {
 			room.roomId = createRoomId();
 			const date = new Date();
 			room.startDate = Math.floor(date.getTime());
-			room.ISODate = date.toISOString();
+			room.ISODate = date;
 			room.save();
 			return res.status(201).json(room).end();
 		}

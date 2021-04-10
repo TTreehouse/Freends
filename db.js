@@ -17,7 +17,7 @@ let MongoSetup = () => {
             roomId: String,
             roomName: String,
             startDate: Number,
-            ISODate: String,
+            ISODate: Date,
             bestDays: {
                 type: [{ day: Number, users: { type: [String] }, userCount: Number }],
             },
