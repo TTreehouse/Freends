@@ -1,4 +1,3 @@
-import e = require("express");
 import express = require("express");
 import { IRoom, Room } from "../../db";
 import {
