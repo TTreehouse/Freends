@@ -63,7 +63,3 @@ app.listen(PORT, () => console.log(`Server started on ${PORT}`));
 app.get("*", function (req, res) {
 	res.redirect("/");
 });
-
-console.log(process.env._);
-console.log(process.env._ && process.env._.indexOf("heroku"));
-console.log(process.env._ && process.env._.indexOf("heroku") !== -1);
