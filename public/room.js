@@ -295,7 +295,7 @@ refreshBtn.addEventListener("click", () => {
 });
 
 backBtn.addEventListener("click", () => {
-	history.go(-1);
+	location.href = location.protocol + "//" + location.host;
 });
 
 function copy() {
