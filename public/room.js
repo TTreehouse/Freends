@@ -295,7 +295,7 @@ refreshBtn.addEventListener("click", () => {
 });
 
 backBtn.addEventListener("click", () => {
-	history.back();
+	history.go(-1);
 });
 
 function copy() {
