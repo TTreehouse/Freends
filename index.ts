@@ -7,6 +7,7 @@ import sslRedirect from "heroku-ssl-redirect";
 import expressSitemapXml = require("express-sitemap-xml");
 var robots = require("robots.txt");
 var compression = require("compression");
+import rateLimit = require("express-rate-limit");
 
 const app = express();
 
@@ -34,6 +35,13 @@ app.use(
 	}, "https://freends.me")
 );
 app.use(robots(__dirname + "/robots.txt"));
+
+const limiter = rateLimit({
+	windowMs: 10 * 60 * 1000, // 15 minutes
+	max: 100, // limit each IP to 100 requests per window
+});
+
+app.use(limiter);
 
 app.use(compression());
 app.use(express.json());
